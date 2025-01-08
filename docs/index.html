@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Sqlazo Módulo de Python | Módulo para gestionar bases de datos en python</title>
+  <style>
+
+  </style>
+
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/tutosrivegamerLQ/legendary-guacamole@main/css/modules_python_docs/style-v1.0.1.css">
+  <link rel="shortcut icon"
+    href="https://cdn.jsdelivr.net/gh/tutosrivegamerLQ/images-projects-srm-trg@refs/heads/main/modules/msqlite_logo.webp"
+    type="image/x-icon">
+
+</head>
+
+<body class="vscode-body vscode-dark">
+  <header>
+    <div class="ctn-img-nav">
+      <a href="https://www.youtube.com/@tutosrive" target="_blank">
+        <img title="@tutosrive Youtube" class="img-nav"
+          src="https://raw.githubusercontent.com/tutosrivegamerLQ/images-projects-srm-trg/main/svg-icons-flags-cursor/icon/youtube.svg"
+          alt="Logo youtube">
+      </a>
+      <a href="https://github.com/tutosrivegamerLQ" target="_blank"><img class="img-nav" title="Author"
+          src="https://avatars.githubusercontent.com/u/108991712?s=400&u=8635c5a4bf3ba434df23aa5b611cae237a964932&v=4"
+          alt="Autor Sqlazo - Santiago Rivera Marin"></a>
+    </div>
+    <h1 class="title-header" title="Repositorio proyecto, Github"><a href="https://github.com/tutosrivegamerLQ/sqlazo/"
+        target="_blank">Sqlazo</a></h1>
+    <a href="https://pypi.org/project/sqlazo/" target="_blank"><img class="img-nav img-repo-module"
+        title="Package python. Pip install"
+        src="https://cdn.jsdelivr.net/gh/tutosrivegamerLQ/images-projects-srm-trg@refs/heads/main/modules/msqlite_logo.webp"
+        alt="Autor Sqlazo - Santiago Rivera Marin"></a>
+  </header>
+  <p>&quot;<strong>Sqlazo</strong>&quot; es un <em>módulo</em> el cual permite gestionar <em>procedimientos
+      básicos</em> en una base de datos con &quot;<strong>sqlite3</strong>&quot; en <strong>PYTHON</strong>.</p>
+
+  <div class="add-container">
+    <a target="_blank" href="https://beta.publishers.adsterra.com/referral/SecK2taf6d" rel="nofollow"><img alt="banner"
+        src="https://landings-cdn.adsterratech.com/referralBanners/gif/720x90_adsterra_reff.gif" /></a>
+  </div>
+
+  <pre>Antes de ejecutar debe instalar: 
+    <span class="spn-green"># pip install chromologger 
+    # Este comando instala la última versión (0.1.3)</span>
+    - <span class="spn-red">chromologger>=0.1.3</span>
+    
+    <span class="spn-green"># pip install chromolog 
+    # Este comando instala la última versión (0.2.0)
+    # Se instala automáticamente con "chromologger"
+    # En caso de error...</span>
+  - <span class="spn-red">chromolog>=0.2.0</span>
+  </pre>
+
+  <h2>Inicialización</h2>
+  <p>Para iniciar, su uso, iniciaría con una instancia de la <em>clase</em> <strong>Database</strong>, laa cual toma
+    como argumentos los siguientes parámetros:</p>
+  <ul class="f-ul">
+    <li><code>name:str</code>: Nombre de la base de datos (Ej: <code>'test.db'</code>).</li>
+    <li><code>check_thread:boolean</code>: Verificar ejecuciones multihilo.</li>
+  </ul>
+  <pre><code class="language-py"><span class="hljs-comment"># Ejemplo de inicialización</span>
+<span class="hljs-keyword">from</span> sqlazo <span class="hljs-keyword">import</span> Database
+
+db = Database(<span class="hljs-string">&#x27;test.db&#x27;</span>, <span class="hljs-literal">False</span>)
+<span class="hljs-comment"># Creará un archivo test.db listo para usar...</span>
+</code></pre>
+  <h2>Métodos públicos disponibles:</h2>
+  <ul class="f-ul">
+    <li><strong>create_table</strong>: Permite crear una tabla en la base de datos conectada.
+      <ul>
+        <li><strong>Parámetros</strong>:
+          <ul>
+            <li><code>table_name:str</code>: Nombre de la tabla que se quiere crear.</li>
+            <li><code>cols:list</code>: Una lista de las columnas que contendrá la tabla cada columna (dentro de la
+              lista) debe llevar su configuración.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <pre><code class="language-py"><span class="hljs-comment"># Columnas con sus configuraciones</span>
+cols = [<span class="hljs-string">&#x27;id INTEGER PRIMARY KEY&#x27;</span>, <span class="hljs-string">&#x27;name TEXT NOT NULL&#x27;</span>, <span class="hljs-string">&#x27;age INTEGER NOT NULL&#x27;</span>]
+<span class="hljs-comment"># Ejecutar &quot;consulta&quot; (Crear tabla)</span>
+db.create_table(<span class="hljs-string">&#x27;user&#x27;</span>, cols)
+</code></pre>
+
+  <div class="add-container">
+    <a target="_blank" href="http://ouo.io/ref/hoidZ1Y5"><img src="http://ouo.io/images/banners/r1.jpg"
+        title="ouo.io - Make short links and earn the biggest money" /></a>
+  </div>
+  <ul class="f-ul">
+    <li><strong>insert_data</strong>: Ejecuta la &quot;consulta&quot; de <em>inserción</em> en la base de datos (Agrega
+      datos).
+      <ul>
+        <li><strong>Parámetros</strong>:</li>
+        <li><code>data:list</code>: Datos que a agregar.</li>
+        <li><code>cols:list</code>: Columnas en las cuales se insertará los datos.</li>
+        <li><code>table_name:str</code>: Nombre de la tabla con la cual se trabajará.</li>
+      </ul>
+    </li>
+  </ul>
+  <pre><code class="language-py">db.insert_data([<span class="hljs-string">&#x27;Santiago&#x27;</span>, <span class="hljs-number">19</span>], [<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>], <span class="hljs-string">&#x27;user&#x27;</span>)
+</code></pre>
+  <ul class="f-ul">
+    <li><strong>get_data_all</strong>: Ejecuta la &quot;consulta&quot; para obtener todos los registros de la base de
+      datos.
+      <ul>
+        <li><strong>Parámetros</strong>:
+          <ul>
+            <li><code>tablename:str</code>: Nombre de la tabla de la cual se obtendrá los registros.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <pre><code class="language-py">db.get_data_all(<span class="hljs-string">&#x27;user&#x27;</span>)
+</code></pre>
+  <ul class="f-ul">
+    <li><strong>get_data_where</strong>: Ejecuta la &quot;consulta&quot; para obtener registros con &quot;consulta
+      personalizada&quot;.
+      <ul>
+        <li><strong>Parámetros</strong>:
+          <ul>
+            <li><code>table_name:str</code>: Nombre de la tabla con la cual se trabajará.</li>
+            <li><code>condition:str</code>: Condición para los retornos válidos de la &quot;consulta&quot;.</li>
+            <li><code>*args:str</code>: Nombres de las columnas que serán seleccionadas en la &quot;consulta&quot;.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <pre><code class="language-py"><span class="hljs-comment"># Si el tercer parámetro existe, solo se tomarán esa columnas en la &quot;consulta&quot;</span>
+<span class="hljs-comment"># Retornará los registros que cumplen la condición, y solo retornará la columna &quot;name&quot;</span>
+<span class="hljs-comment"># select name from user where id &lt; 3</span>
+db.get_data_where(<span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;id &lt; 3&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>)
+
+<span class="hljs-comment"># En caso de no existir los *args, se da por entendido que se seleccionarán todas las columnas</span>
+<span class="hljs-comment"># Retorna los registros válidos a la condición y todas las columnas</span>
+<span class="hljs-comment"># select * from user where id &lt; 3*</span>
+db.get_data_where(<span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;id &lt; 3&#x27;</span>)
+</code></pre>
+
+  <div class="add-container">
+    <a target="_blank" href="https://beta.publishers.adsterra.com/referral/SecK2taf6d" rel="nofollow"><img alt="banner"
+        src="https://landings-cdn.adsterratech.com/referralBanners/gif/720x90_adsterra_reff.gif" /></a>
+  </div>
+  <ul class="f-ul">
+    <li><strong>delete_data</strong>: Eliminar registros dea base de datos.
+      <ul>
+        <li><strong>Parámetros</strong>:
+          <ul>
+            <li><code>table:str</code>: Nombre de la tabla con la cual se trabajará.</li>
+            <li><code>condition:str</code>: Condición que debe cumplir un registro para ser eliminado.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <pre><code class="language-py"><span class="hljs-comment"># Eliminar los usuarios menores de edad</span>
+db.delete_data(<span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;age &lt; 18&#x27;</span>)
+</code></pre>
+  <ul class="f-ul">
+    <li><strong>close</strong>: Cerrar conexión con la base de datos.</li>
+  </ul>
+  <pre><code class="language-py"><span class="hljs-comment"># Cerrar conexión con la base de datos</span>
+db.close()
+</code></pre>
+  <div class="add-container">
+    <a target="_blank" href="http://ouo.io/ref/hoidZ1Y5"><img src="http://ouo.io/images/banners/r1.jpg"
+        title="ouo.io - Make short links and earn the biggest money" /></a>
+  </div>
+  <h3 id="métodos-privados-">Métodos privados 🔏</h3>
+  <ul class="f-ul">
+    <li><strong>__connect</strong>: Realizar conexión a la base de datos.</li>
+    <li><strong>__commit</strong>: &quot;Refrescar&quot; cambios en la base de datos.</li>
+    <li><strong>__cursor</strong>: Crea un cursor en la conexión a la base de datos, el cual permite &quot;ejecutar
+      consultas&quot;.</li>
+  </ul>
+  <pre><code># Sólo de uso interno</code></pre>
+
+  <h3>Ejemplo de uso completo:</h3>
+  <pre><code class="language-python">
+    <span class="hljs-comment"># Ejemplo de inicialización</span>
+    <span class="hljs-keyword">from</span> sqlazo <span class="hljs-keyword">import</span> Database
+    
+    db = Database(<span class="hljs-string">&#x27;test.db&#x27;</span>, <span class="hljs-literal">False</span>)
+    
+    <span class="hljs-comment"># Columnas con sus configuraciones</span>
+    cols = [<span class="hljs-string">&#x27;id INTEGER PRIMARY KEY&#x27;</span>, <span class="hljs-string">&#x27;name TEXT NOT NULL&#x27;</span>, <span class="hljs-string">&#x27;age INTEGER NOT NULL&#x27;</span>]
+    <span class="hljs-comment"># Ejecutar &quot;consulta&quot; (Crear tabla)</span>
+    db.create_table(<span class="hljs-string">&#x27;user&#x27;</span>, cols)
+    db.insert_data([<span class="hljs-string">&#x27;Santiago&#x27;</span>, <span class="hljs-number">19</span>], [<span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-string">&#x27;age&#x27;</span>], <span class="hljs-string">&#x27;user&#x27;</span>)
+    
+    dataAll = db.get_data_all(<span class="hljs-string">&#x27;user&#x27;</span>)
+    
+    <span class="hljs-comment"># Si el tercer parámetro existe, solo se tomarán esa columnas en la &quot;consulta&quot;</span>
+    <span class="hljs-comment"># Retornará los registros que cumplen la condición, y solo retornará la columna &quot;name&quot;</span>
+    <span class="hljs-comment"># select name from user where id &lt; 3</span>
+    data_where1 = db.get_data_where(<span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;id &lt; 3&#x27;</span>, <span class="hljs-string">&#x27;name&#x27;</span>)
+    
+    <span class="hljs-comment"># En caso de no existir los *args, se da por entendido que se seleccionarán todas las columnas</span>
+    <span class="hljs-comment"># Retorna los registros válidos a la condición y todas las columnas</span>
+    <span class="hljs-comment"># select * from user where id &lt; 3*</span>
+    data_where12 = db.get_data_where(<span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;id &lt; 3&#x27;</span>)
+    
+    <span class="hljs-comment"># Eliminar los usuarios menores de edad</span>
+    db.delete_data(<span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;age &lt; 18&#x27;</span>)
+    
+    <span class="hljs-comment"># Cerrar conexión con la base de datos</span>
+    db.close()
+    </code></pre>
+  <footer style="text-align: center; margin: 10px auto;">&copy;SRM-TRG 2025</footer>
+</body>
+
+</html>
