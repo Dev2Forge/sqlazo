@@ -6,13 +6,14 @@ siempre y cuando sea una base de datos SQLITE
 @author Tutos Rive Gamer
 
 Historial de versiones:
+- `0.1.1`: Se agregó el manejo de dependencias en el archivo de construcción (.toml)
 - 0.1.0: Versión inicial
 """
 
 import sqlite3 as sql
 from chromologger import Logger
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Tutos Rive Gamer"
 
 # Escritor de registros

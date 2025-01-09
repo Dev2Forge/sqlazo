@@ -1,4 +1,4 @@
-# Sqlazo
+# SQLAZO
 
 Es un módulo para gestionar bases de datos _SQLITE_. Le permite acceder a métodos que realizan **transacciones** con la base de datos que usted elija, siempre y cuando sea una base de datos _SQLITE_
 
@@ -31,6 +31,7 @@ db = Database('test.db', False)
 - `__cursor`: Crea un cursor en la conexión a la base de datos, el cual permite "ejecutar consultas".
 
 ## Historial de versiones:
+- `0.1.1`: Se agregó el manejo de dependencias en el archivo de construcción (.toml)
 - `0.1.0`: Versión inicial
 
 ## Si desea conocer más acerca de, visite:
