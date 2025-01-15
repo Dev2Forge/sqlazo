@@ -1,4 +1,6 @@
-# SQLAZO
+# SQLAZO [![PyPI Downloads](https://static.pepy.tech/badge/sqlazo)](https://pepy.tech/projects/sqlazo)
+
+
 
 Es un módulo para gestionar bases de datos _SQLITE_. Le permite acceder a métodos que realizan **transacciones** con la base de datos que usted elija, siempre y cuando sea una base de datos _SQLITE_
 
@@ -31,6 +33,7 @@ db = Database('test.db', False)
 - `__cursor`: Crea un cursor en la conexión a la base de datos, el cual permite "ejecutar consultas".
 
 ## Historial de versiones:
+- `0.1.3`: Actualización de versiones de dependencias
 - `0.1.2`: Actualización de versiones de dependencias
 - `0.1.1`: Se agregó el manejo de dependencias en el archivo de construcción (.toml)
 - `0.1.0`: Versión inicial
