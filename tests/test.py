@@ -1,6 +1,6 @@
-# Visite esta página (https://tutosrivegamerlq.github.io/sqlazo/)
-# Visite esta página (https://tutosrivegamerlq.github.io/chromologger/)
-# Visite esta página (https://tutosrivegamerlq.github.io/chromolog/)
+# Visite esta página (https://tutosrive.github.io/sqlazo/)
+# Visite esta página (https://tutosrive.github.io/chromologger/)
+# Visite esta página (https://tutosrive.github.io/chromolog/)
 
 # pip install sqlazo
 # Ejemplo de inicialización
