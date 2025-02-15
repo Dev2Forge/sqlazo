@@ -1,4 +1,4 @@
-# v0.1.3
+# v0.1.4
 """Sqlazo para gestionar bases de datos SQLITE
 
 Le permite acceder a métodos que realizan transacciones con la base de datos que usted elija,
@@ -7,6 +7,7 @@ siempre y cuando sea una base de datos SQLITE
 @author Tutos Rive Gamer
 
 Historial de versiones:
+- 0.1.4: Actualización de dependencias y links
 - 0.1.3: Actualización de versiones de dependencias
 - 0.1.2: Actualización de versiones de dependencias
 - 0.1.1: Se agregó el manejo de dependencias en el archivo de construcción (.toml)
@@ -16,8 +17,8 @@ Historial de versiones:
 import sqlite3 as sql
 from chromologger import Logger
 
-__version__ = "0.1.3"
-__author__ = "Tutos Rive Gamer"
+__version__ = "0.1.4"
+__author__ = "Tutos Rive"
 
 # Escritor de registros
 log = Logger()
