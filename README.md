@@ -36,6 +36,7 @@ db = Database('test.db', False)
 - `__cursor`: Crea un cursor en la conexión a la base de datos, el cual permite "ejecutar consultas".
 
 ## Historial de versiones:
+- `0.1.5`: Actualización de dependencias y links
 - `0.1.4`: Actualización de dependencias y links
 - `0.1.3`: Actualización de versiones de dependencias
 - `0.1.2`: Actualización de versiones de dependencias
