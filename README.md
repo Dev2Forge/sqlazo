@@ -1,4 +1,17 @@
-# SQLAZO [![PyPI Downloads](https://static.pepy.tech/badge/sqlazo)](https://pepy.tech/projects/sqlazo)
+# SQLAZO
+  <!-- Badges -->
+  <div>
+<!-- Total downloads -->
+    <a href="https://pepy.tech/projects/sqlazo"><img src="https://static.pepy.tech/badge/sqlazo" alt="PyPI Downloads"></a>
+<!-- Versión actual -->
+    <a href="https://pypi.org/project/sqlazo/"><img alt="PyPI - Version" src="https://img.shields.io/pypi/v/sqlazo?label=sqlazo"></a>
+<!-- Python versions supported -->
+    <a href="https://python.org/"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/sqlazo"></a> 
+<!-- Author -->
+    <a href="https://github.com/tutosrive"><img alt="Static Badge" src="https://img.shields.io/badge/Tutos%20Rive-Author-brightgreen"></a>
+<!-- Licencia -->
+    <a href="https://raw.githubusercontent.com/tutosrive/sqlazo/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/tutosrive/sqlazo"></a>
+  </div>
 
 ```shell
 pip install sqlazo
