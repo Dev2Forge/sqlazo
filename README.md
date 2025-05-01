@@ -1,5 +1,9 @@
 # SQLAZO
 
+> [!WARNING]
+> Contiene algunos errores que pueden ser controlados con bloques `try`, revise constantemente el archivo de registros `./log.log`, allí se detallan los errores que pasé por alto.<br>
+> Los corregiré en las próximas semanas...
+
 ---
 
 <div style="display: flex; align-items: center; justify-content: center; margin: 10px 0; gap: 10px; max-height: 48px; height: 48px;">
