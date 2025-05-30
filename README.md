@@ -78,6 +78,6 @@ db = Database('test.db', False)
 - `0.1.0`: Versión inicial
 
 ## Si desea conocer más acerca de, visite:
-- [Web de soporte](https://tutosrive.github.io/sqlazo/)
+- [Web de soporte](https://docs.dev2forge.software/sqlazo/)
 - [Web pypi.org](https://pypi.org/project/sqlazo/)
 - [Github project](https://github.com/Dev2Forge/sqlazo/)
