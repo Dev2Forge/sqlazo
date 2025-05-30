@@ -80,4 +80,4 @@ db = Database('test.db', False)
 ## Si desea conocer más acerca de, visite:
 - [Web de soporte](https://tutosrive.github.io/sqlazo/)
 - [Web pypi.org](https://pypi.org/project/sqlazo/)
-- [Github project](https://github.com/tutosrive/sqlazo/)
+- [Github project](https://github.com/Dev2Forge/sqlazo/)
