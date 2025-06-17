@@ -6,12 +6,6 @@
   <a href="https://github.com/sponsors/dev2forge" target="_blank">
   <img src="https://img.shields.io/badge/Sponsor-🥇%20dev2forge-blue?style=for-the-badge&logo=github" alt="Sponsor me on GitHub">
 </a>
-  <a href="https://www.buymeacoffee.com/tutosrive">
-    <img
-      src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=tutosrive&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"
-      style="height: 48px; width: auto; object-fit: contain; border-radius: 6px;"
-      alt="Buy me a coffee button">
-  </a>
 </div>
 
 ---
