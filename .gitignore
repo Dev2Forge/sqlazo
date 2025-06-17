@@ -10,3 +10,4 @@ node_modules/
 .chromo_venv
 *.log
 *.db
+.idea
