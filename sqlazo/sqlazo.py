@@ -91,12 +91,12 @@ class Database:
 		"""Insert data in a specific table
 
 			Args:
-			    `data:list`: Data to insert into the table
-			    `cols:list`: Columns in which the values will be inserted
-			    `table_name:str`: Table name in which the values will be inserted
+				`data:list`: Data to insert into the table
+				`cols:list`: Columns in which the values will be inserted
+				`table_name:str`: Table name in which the values will be inserted
 
 			Returns:
-			    `bool`: `True` success, `False` error
+				`bool`: `True` success, `False` error
 			"""
 		if not self.table_exists(table_name): log.log(f'Table {table_name} does not exist'); return False
 
