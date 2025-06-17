@@ -8,6 +8,5 @@ _site/
 node_modules/
 .vscode/
 .chromo_venv
-pyproject.toml
-MANIFEST.in
 *.log
+*.db

@@ -1,202 +1,198 @@
-# v0.1.5
-"""Sqlazo para gestionar bases de datos SQLITE
+# v0.2.0
+"""SQLazo for managing SQLITE databases
 
-Le permite acceder a métodos que realizan transacciones con la base de datos que usted elija,
-siempre y cuando sea una base de datos SQLITE
+Allows you to access methods that perform transactions with the database of your choice, as long as it is a SQLITE database.
 
-@author Tutos Rive Gamer
+@author Tutos Rive
 
-Historial de versiones:
-- 0.1.5: Actualización de dependencias y links
-- 0.1.4: Actualización de dependencias y links
-- 0.1.3: Actualización de versiones de dependencias
-- 0.1.2: Actualización de versiones de dependencias
-- 0.1.1: Se agregó el manejo de dependencias en el archivo de construcción (.toml)
-- 0.1.0: Versión inicial
+Version history:
+- `0.2.0`: A new method was added to correctly check whether a table exists or not, and the code was modified to try to be
+	compatible with older versions of Python and:
+		- `Fix`: issue #1 (https://github.com/Dev2Forge/sqlazo/issues/1)
+- `0.1.5`: Updated dependencies and links
+- `0.1.4`: Updated dependencies and links
+- `0.1.3`: Updated dependency versions
+- `0.1.2`: Updated dependency versions
+- `0.1.1`: Added dependency handling in the build file (.toml)
+- `0.1.0`: Initial release
 """
 
 import sqlite3 as sql
+from typing import Optional, Union
 from chromologger import Logger
 
-__version__ = "0.1.5"
+__version__ = "0.2.0"
 __author__ = "Tutos Rive"
+__license__ = "MIT"
+__email__ = "support@dev2forge.software"
+__website__ = "https://docs.dev2forge.software/sqlazo/"
 
-# Escritor de registros
+# Log Writer
 log = Logger()
 
 class Database:
-	""" Manipular base de datos """
-	def __init__(self, name, check_thread) -> None:
-		# Nombre base de datos
+	"""Manage SQLITE database"""
+	def __init__(self, name:str, check_thread:bool = False) -> None:
+		# Database name
 		self.name:str = name
-		# Verificar "Multi Hilo"
+		# Check "Multi Thread"
 		self.check:bool = check_thread
-		# Conexión
+		# Connection to the database
 		self.conn:sql.Connection = self.__connect()
 		# Cursor
 		self.cur:sql.Cursor = self.__cursor()
 
-	def __connect(self) -> sql.Connection | int:
-		"""Crear conexión con la base de datos
-		
-		Returns:
-			`sql.Connection | int`: 
-				`sql.Cursor`: Si no hay errores
-				`int`: `-1`, ocurrió un error
-		"""
-		try:
-			return sql.connect(self.name, check_same_thread=self.check)
-		except sql.Error as e:
-			log.log_e(e)
-			return -1
-
-	def __cursor(self) -> sql.Cursor | int:
-		"""Agregar un cursor a la conexión
+	def __connect(self) -> Union[sql.Connection, int]:
+		"""Create connection to the database
 
 		Returns:
-			`sql.Cursor | int`: 
-				`sql.Cursor`: Si no hay errores
-				`int`: `-1`, ocurrió un error
+			`sql.Connection | int`:
+				`sql.Cursor`: Success
+				`int`: `-1`, Error
 		"""
-		try:
-			return self.conn.cursor()
-		except sql.Error as e:
-			log.log_e(e)
-			return -1
-	    
+		try: return sql.connect(self.name, check_same_thread=self.check)
+		except sql.Error as e: log.log_e(e); return -1
+
+	def __cursor(self) -> Union[sql.Cursor, int]:
+		"""Add a cursor to the connection
+
+		Returns:
+			`sql.Cursor | int`:
+				`sql.Cursor`: Success
+				`int`: `-1`, Error
+		"""
+		try: return self.conn.cursor()
+		except sql.Error as e: log.log_e(e); return -1
+
 	def create_table(self, table_name:str, cols:list) -> bool:
-		"""Crear tabla en base de datos
+		"""Create table in database
 
 		Args:
-			`table_name:str`: Nombre de la tabla que se quiere crear
-			`cols:list`: Columnas que se agregarán a la tabla
+			`table_name:str`: Name of the table you want to create
+			`cols:list`: Columns that are added to the table
 
 		Returns:
-			`bool`: 
-				`False`: Operación con errores
-				`True`: Operación sin errores
+			`bool`:
+				`False`: Errors
+				`True`: Success
 		"""
-		# Informar al usuario donde está el error que verá en la base de datos...
 		tp:type = type(cols)
 		if tp == list:
-			# Separar columnas por coma
 			try:
 				cols:str = ', '.join(cols)
-				self.cur.execute(f'CREATE TABLE {table_name} ({cols})')
-				# Operación ejecutada, retornar nombre de tabla creada
+				self.cur.execute(f'CREATE TABLE IF NOT EXISTS {table_name} ({cols})')
+
+				# Success query
 				return True
-			except sql.Error as error:
-				# print(error)
-				log.log_e(error)
-				# Hubieron errores
-				return False
-		else:
-			log.log(f'Se recibió {tp} como atributo cols, debería ser de tipo {type([])}')
-			# Hubieron errores
-			return False
-	
+			except sql.Error as error: log.log_e(error); return False
+		else: log.log(f'Received {tp} as cols attribute, should be of type List'); return False
+
 	def insert_data(self, data:list, cols:list, table_name:str) -> bool:
-		"""Inserta datos en una tabla específica.
+		"""Insert data in a specific table
 
 			Args:
-			    `data:list`: Lista de valores a insertar
-			    `cols:list`: Columnas correspondientes a los valores
-			    `table_name:str`: Nombre de la tabla donde se insertarán los datos
+			    `data:list`: Data to insert into the table
+			    `cols:list`: Columns in which the values will be inserted
+			    `table_name:str`: Table name in which the values will be inserted
 
 			Returns:
-			    `bool`: `True` si la inserción fue exitosa, `False` en caso de error
+			    `bool`: `True` success, `False` error
 			"""
+		if not self.table_exists(table_name): log.log(f'Table {table_name} does not exist'); return False
+
 		try:
-			# Signos '?'' para evitar sqlInjection
+			# Try to avoid SQLInjection
 			sign:str = ', '.join(['?' for _ in cols])
+
 			try:
-	        	# Formato consulta SQL
+				# Format query
 				query:str = f'INSERT INTO {table_name} ({", ".join(cols)}) VALUES ({sign})'
-	        	# Ejecución de la consulta SQL
+
+				# Query execute
 				self.cur.execute(query, data)
-	        	# Actualizar cambios
-				self.__commit()
-				return True
-			except sql.Error as error:
-				log.log_e(error)
-				return False
-		except TypeError as e:
-			log.log_e(e)
-			return False
-	        
-	def get_data_all(self, tablename:str) -> sql.Cursor | None:
-		"""Obtener toda la información de una tabla
+
+				# Commit changes
+				self.__commit(); return True
+			except sql.Error as error: log.log_e(error); return False
+		except TypeError as e: log.log_e(e); return False
+
+	def get_data_all(self, table_name:str) -> Optional[sql.Cursor]:
+		"""Get all data from a specific table
 
 		Args:
-			`tablename:str`: Nombre de la tabla
+			`table_name:str`: Name of table
 
 		Returns:
-			`sql.Cursor` | `None`: `sql.Cursor` si la ejecución fue exitosa, `None` en caso de error
+			`sql.Cursor` | `None`: `sql.Cursor` success, `None` error
 		"""
-		try:
-			return self.cur.execute(f'SELECT * FROM {tablename}')
-		except sql.Error as e:
-			log.log_e(e)
-	
-	def get_data_where(self, table_name:str, condition:str, *args:str) -> sql.Cursor | None:
-		"""Seleccionar datos con una condición
+		# First check if the table exists
+		if not self.table_exists(table_name): log.log(f'Table {table_name} does not exist'); return None
+
+		try: return self.cur.execute(f'SELECT * FROM {table_name}')
+		except sql.Error as e: log.log_e(e)
+
+	def table_exists(self, table_name:str) -> bool:
+		"""Check if exists a table into the database
 
 		Args:
-			`table_name:str`: 
-			`condition:str`: 
+			`table_name:str`: The table name to check if exists
+		"""
+		__return: bool = False
+		if self.cur.execute(f'PRAGMA table_info({table_name})').fetchone() is not None: __return = True
+		return __return
+
+	def get_data_where(self, table_name:str, condition:str, *args:str) -> Optional[sql.Cursor]:
+		"""Select data with a "where" condition
+
+		Args:
+			`table_name:str`: Name of table to get data
+			`condition:str`: Where is the condition to get the data
 
 		Returns:
-			sql.Cursor | None: _description_
+			sql.Cursor | None: The cursor assigned to query
 		"""
+		if not self.table_exists(table_name): log.log(f'Table {table_name} does not exist'); return None
+		if condition.strip() == '': log.log('Missing condition'); return None
 		args = ", ".join(args) if len(args) > 0 else '*'
-		try:
-			return self.cur.execute(f'SELECT {args} FROM {table_name} WHERE {condition}')
-		except sql.Error as error:
-			log.log_e(error)
-	    
+
+		try: return self.cur.execute(f'SELECT {args} FROM {table_name} WHERE {condition}')
+		except sql.Error as error: log.log_e(error)
+
 	def delete_data(self, table:str, condition:str) -> bool:
-		"""Eliminar elementos de la base de datos
+		"""Delete data from table whit a where condition
 
 		Args:
 			`table:str`: Nombre de la tabla
-			`condition:str`: Condición que debe cumplir el elemento para poderse eliminar (`WHERE`)
+			`condition:str`: Condition to delete a data (`WHERE`)
 
 		Returns:
-			`bool`: `True` si la operación fue exitosa, `False` en caso de error
+			`bool`: `True` success, `False` error
 		"""
-		if len(condition.replace(' ', '')) > 2:	
+		if not self.table_exists(table): log.log(f'Table {table} does not exist'); return False
+		if condition.strip() != '':
 			try:
 				query = self.cur.execute(f'DELETE FROM {table} WHERE {condition}')
-				self.__commit()
-				return True
-			except sql.Error as error:
-				log.log_e(error)
-				return False
+				print(query)
+				self.__commit(); return True
+			except sql.Error as error: log.log_e(error); return False
 		else:
-			log.log('No se especificó una condición (WHERE) válida al momento de eliminar un dato')
-	
+			log.log('No valid condition was added (where)')
+			return False
+
 	def __commit(self) -> bool:
-		""" Actualizar cambios 
+		"""Commit changes to database
 
 			Returns:
-				`bool`: `True` si el cambio fue exitoso, `False` en caso de rror
+				`bool`: `True` When commit was success, `False` when error
 		"""
-		try:
-			self.conn.commit()
-			return True
-		except sql.Error as e:
-			log.log_e(e)
-			return False
-	
+		try: self.conn.commit(); return True
+		except sql.Error as e: log.log_e(e); return False
+
 	def close(self) -> bool:
-		"""Cerrar conexión con la base de datos
+		"""Close database connection
 
 		Returns:
-			`bool`: `True` si la base de la conexión fue cerrada con éxito, `False` en caso de error
+			`bool`: `True` Database was closed, `False` when error
 		"""
-		try:
-			self.conn.close()
-			return True
-		except sql.Error as e:
-			log.log_e(e)
-			return False
+		try: self.conn.close(); return True
+		except sql.Error as e: log.log_e(e); return False

@@ -1,83 +1,91 @@
 # SQLAZO
 
-> [!WARNING]
-> Contiene algunos errores que pueden ser controlados con bloques `try`, revise constantemente el archivo de registros `./log.log`, allí se detallan los errores que pasé por alto.<br>
-> Los corregiré en las próximas semanas...
-
 ---
 
 <div style="display: flex; align-items: center; justify-content: center; margin: 10px 0; gap: 10px; max-height: 48px; height: 48px;">
-  <a href="https://github.com/sponsors/tutosrive" target="_blank">
-  <img src="https://img.shields.io/badge/Sponsor-%F0%9F%92%96%20tutosrive-orange?style=for-the-badge&logo=github" alt="Sponsor me on GitHub">
+  <a href="https://github.com/sponsors/dev2forge" target="_blank">
+  <img src="https://img.shields.io/badge/Sponsor-🥇%20dev2forge-blue?style=for-the-badge&logo=github" alt="Sponsor me on GitHub">
 </a>
   <a href="https://www.buymeacoffee.com/tutosrive">
-    <img 
-      src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=tutosrive&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" 
-      style="height: 48px; width: auto; object-fit: contain; border-radius: 6px;" 
+    <img
+      src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=tutosrive&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"
+      style="height: 48px; width: auto; object-fit: contain; border-radius: 6px;"
       alt="Buy me a coffee button">
   </a>
 </div>
 
 ---
 
-  <!-- Badges -->
-  <div>
+<!-- Badges -->
+
+<div>
 <!-- Total downloads -->
-    <a href="https://pepy.tech/projects/sqlazo"><img src="https://static.pepy.tech/badge/sqlazo" alt="PyPI Downloads"></a>
-<!-- Versión actual -->
-    <a href="https://pypi.org/project/sqlazo/"><img alt="PyPI - Version" src="https://img.shields.io/pypi/v/sqlazo?label=sqlazo"></a>
-<!-- Python versions supported -->
-    <a href="https://python.org/"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/sqlazo"></a> 
+  <a href="https://pepy.tech/projects/sqlazo"><img src="https://static.pepy.tech/badge/sqlazo" alt="PyPI Downloads"></a>
+<!-- Current version -->
+  <a href="https://pypi.org/project/sqlazo/"><img alt="PyPI - Version" src="https://img.shields.io/pypi/v/sqlazo?label=sqlazo"></a>
+<!-- Supported Python versions -->
+  <a href="https://python.org/"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/sqlazo"></a>
 <!-- Author -->
-    <a href="https://github.com/tutosrive"><img alt="Static Badge" src="https://img.shields.io/badge/Tutos%20Rive-Author-brightgreen"></a>
-<!-- Licencia -->
-    <a href="https://raw.githubusercontent.com/tutosrive/sqlazo/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/tutosrive/sqlazo"></a>
-  </div>
+  <a href="https://github.com/tutosrive"><img alt="Static Badge" src="https://img.shields.io/badge/Tutos%20Rive-Author-brightgreen"></a>
+<!-- Licence -->
+  <a href="https://github.com/Dev2Forge/sqlazo/blob/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/dev2forge/sqlazo"></a>
+</div>
 
 ```shell
 pip install sqlazo
 ```
+
 ---
 
-Es un módulo para gestionar bases de datos _SQLITE_. Le permite acceder a métodos que realizan **transacciones** con la base de datos que usted elija, siempre y cuando sea una base de datos _SQLITE_
+It is a module for managing *SQLITE* databases. It provides access to methods that perform **transactions** with the database of your choice, as long as it is a *SQLITE* database.
 
-## Inicialización
+## Initialisation
 
-Para iniciar, su uso, se hará una instancia de la clase **Database**, la cual recibe los siguientes parámetros:
+To begin using it, create an instance of the **Database** class, which accepts the following parameters:
 
-`name:str`: Nombre de la base de datos (Ej: `'test.db'`).
-`check_thread:boolean`: Verificar ejecuciones multihilo.
+`name: str`: Name of the database (e.g. `'test.db'`).
+`check_thread: boolean`: Check for multithreaded executions.
 
 ```py
-# Ejemplo de inicialización
+# Initialisation example
 from sqlazo import Database
 
-db = Database('test.db', False)
-# Creará un archivo test.db listo para usar...
+# Will create a test.db file ready to use
+# check threads is False by default
+db = Database('test.db')
 ```
 
-## Métodos disponibles
+## Available Methods
 
-- `create_table`: Permite crear una tabla en la base de datos conectada.
-- `insert_data`: Ejecuta la "consulta" de inserción en la base de datos (Agrega datos).
-- `get_data_all`: Ejecuta la "consulta" para obtener todos los registros de la base de datos.
-- `get_data_where`: Ejecuta la "consulta" para obtener registros con "consulta personalizada".
-- `delete_data`: Eliminar registros dea base de datos.
+* `create_table`: Allows you to create a table in the connected database.
+* `table_exists`: Allows you to check if a table exists in the database.
+* `insert_data`: Executes the insertion "query" in the database (adds data).
+* `get_data_all`: Executes the "query" to retrieve all records from the database.
+* `get_data_where`: Executes the "query" to retrieve records using a "custom query".
+* `delete_data`: Deletes records from the database.
 
-## Métodos privados 🔏
-- `__connect`: Realizar conexión a la base de datos.
-- `__commit`: "Refrescar" cambios en la base de datos.
-- `__cursor`: Crea un cursor en la conexión a la base de datos, el cual permite "ejecutar consultas".
+## Private Methods 🔏
 
-## Historial de versiones:
-- `0.1.5`: Actualización de dependencias y links
-- `0.1.4`: Actualización de dependencias y links
-- `0.1.3`: Actualización de versiones de dependencias
-- `0.1.2`: Actualización de versiones de dependencias
-- `0.1.1`: Se agregó el manejo de dependencias en el archivo de construcción (.toml)
-- `0.1.0`: Versión inicial
+* `__connect`: Establishes connection to the database.
+* `__commit`: "Refreshes" changes to the database.
+* `__cursor`: Creates a cursor on the database connection, allowing "query execution".
 
-## Si desea conocer más acerca de, visite:
-- [Web de soporte](https://tutosrive.github.io/sqlazo/)
-- [Web pypi.org](https://pypi.org/project/sqlazo/)
-- [Github project](https://github.com/tutosrive/sqlazo/)
+## Version History:
+
+- `0.2.0`: A new method was added to correctly check whether a table exists or not, and the code was modified to try to be
+  compatible with older versions of Python and:
+  - `Fix`: [issue #1](https://github.com/Dev2Forge/sqlazo/issues/1)
+  - `Update`: Links and e-mail support
+  - `Feat`: Added new method [`table_exists`](#available-methods)
+- `0.1.5`: Updated dependencies and links
+- `0.1.4`: Updated dependencies and links
+- `0.1.3`: Updated dependency versions
+- `0.1.2`: Updated dependency versions
+- `0.1.1`: Added dependency handling in the build file (.toml)
+- `0.1.0`: Initial release
+
+## If you wish to learn more, visit:
+
+* [Support website](https://docs.dev2forge.software/sqlazo/)
+* [PyPI page](https://pypi.org/project/sqlazo/)
+* [GitHub project](https://github.com/dev2forge/sqlazo/)
